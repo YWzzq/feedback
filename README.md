@@ -110,7 +110,7 @@ pip install pillow
 
 ⚠️ 将路径替换为你的实际项目路径！
 
-python C:/Users/hp/software/MCP/ai_feedback_tool_blocking.py --gui --summary "你的任务摘要" --timeout 9999
+python C:/Users/hp/software/MCP/ai_feedback_tool_blocking.py --cli --summary "你的任务摘要" --timeout 9999
 
 关键参数：isBackground=false
 
