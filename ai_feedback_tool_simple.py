@@ -31,7 +31,11 @@ warnings.filterwarnings("ignore")
 
 def collect_feedback_cli(summary: str = "", timeout: int = 600):
     """
-    收集用户反馈 - CLI模式
+    收集用户反馈 - CLI模式（简洁版）
+    
+    特性：
+    - 直接输入多行反馈
+    - 输入 end 结束
     
     Args:
         summary: AI工作摘要
@@ -40,19 +44,30 @@ def collect_feedback_cli(summary: str = "", timeout: int = 600):
     Returns:
         反馈列表
     """
+    # 打印标题
+    print(f"\n{'='*60}")
+    print("🤖 AI 助手等待用户反馈")
+    print(f"{'='*60}")
+    
     if summary:
-        print(f"📋 {summary}")
-    print("💬 反馈 (输入end结束):")
+        print(f"\n📋 工作摘要:\n   {summary}\n")
+    
+    print("💡 提示: 直接输入反馈内容，多行可继续输入，输入 end 结束")
+    print(f"{'─'*60}\n")
     
     feedback_list = []
     
     try:
         while True:
-            user_input = input("> ").strip()
+            # 先用print显示提示符，确保在所有终端都能看到
+            print("👉 ", end='', flush=True)
+            user_input = input().rstrip()
             
-            if user_input.lower() in ['end', '结束', 'exit', 'quit']:
+            # 输入end结束
+            if user_input.lower() == 'end':
                 break
             
+            # 记录反馈
             if user_input:
                 feedback_list.append({
                     "type": "text",
@@ -62,6 +77,14 @@ def collect_feedback_cli(summary: str = "", timeout: int = 600):
     
     except (KeyboardInterrupt, EOFError):
         pass
+    
+    # 结束显示
+    print(f"\n{'='*60}")
+    if feedback_list:
+        print(f"✅ 已收集 {len(feedback_list)} 条反馈")
+    else:
+        print("⚠️  未收集到反馈")
+    print(f"{'='*60}\n")
     
     return feedback_list
 
